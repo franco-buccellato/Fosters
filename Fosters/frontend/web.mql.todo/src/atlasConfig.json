@@ -1,9 +1,0 @@
-{
-    "appId": "fosters-cambo",
-    "appUrl": "https://realm.mongodb.com/groups/649379d6e4d697440735b983/apps/649b679fe1377e4fb58493a9",
-    "baseUrl": "https://realm.mongodb.com",
-    "clientApiBaseUrl": "https://us-east4.gcp.realm.mongodb.com",
-    "dataApiBaseUrl": "https://us-east4.gcp.data.mongodb-api.com",
-    "dataExplorerLink": "https://cloud.mongodb.com/links/649379d6e4d697440735b983/explorer/Fosters/database/collection/find",
-    "dataSourceName": "mongodb-atlas"
-}

@@ -1,8 +1,0 @@
-{
-    "app_id": "fosters-cambo",
-    "config_version": 20210101,
-    "name": "Fosters",
-    "location": "US-VA",
-    "provider_region": "gcp-us-east4",
-    "deployment_model": "LOCAL"
-}
