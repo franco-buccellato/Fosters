@@ -1,0 +1,146 @@
+.navbar {
+    background-color: #a9a0a0ea;
+}
+
+ion-icon {
+    font-size: 32px;
+}
+
+.container-navigation {
+    z-index: 100000000;
+    width: 100%;
+    height: 250px;
+    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0.73) 0%, rgba(255, 255, 255, 0) 72.48%); */
+    background: #a9a0a0ea;
+    font-size: 1vw;
+}
+
+.navigation {
+    position: fixed;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 100%;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    height: 135px;
+    z-index: 100000000;
+    background: #a9a0a0ea;
+    /* box-shadow: -12px 15px 35px -4px #afafaf40; */
+}
+
+.container-logo-marca {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.container-logo-marca img {
+    height: 120px;
+    width: 178px;
+    padding-left: 20%;
+    margin-bottom: -4%;
+}
+
+.container-logo-marca-responsive {
+    display: none;
+}
+
+.navbar-style {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0 0 0;
+    margin: 0;
+    gap: 32px;
+    list-style: none;
+    text-decoration: none;
+}
+
+.navbar-style li {
+    padding-bottom: 7px;
+}
+
+.navbar-style .list h2 {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+.navbar-style .list-trabaja-con-nosotros h2 {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    /* border: 3px solid #CD1F26; */
+    border: 3px solid #CD1F26;
+    padding: 10px;
+    margin-bottom: -10px;
+    border-radius: 5px;
+    background-color: #CD1F26;
+}
+
+.list a, .list-user a, .list-carrito a {
+    color: #ffffff;
+}
+
+.list-user {
+    margin-left: -30px;
+}
+
+.list a:hover {
+    color: #CD1F26;
+}
+
+.list-user a:hover {
+    color: #CD1F26;
+}
+
+.list-trabaja-con-nosotros a {
+    color: #181818;
+}
+
+.list-trabaja-con-nosotros a:hover {
+    color: #181818;
+}
+
+.list-trabaja-con-nosotros :hover {
+    box-shadow: 3px 4px 7px 5px rgba(0, 0, 0, 0.15);
+}
+
+.list-trabaja-con-nosotros h2 {
+    list-style: none;
+    text-decoration: none;
+    border: 3px solid #CD1F26;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/*RESPONSIVE*/
+@media only screen and (max-width: 1200px) {
+    .navigation {
+        margin-top: 0px;
+    }
+    .container-logo-marca img {
+        height: 100px;
+        width: 150px;
+        padding-left: 20%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .container-logo-marca img {
+        height: 80px;
+        width: 120px;
+        padding-left: 20%;
+        padding-bottom: 5%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .navigation {
+        display: none;
+    }
+}

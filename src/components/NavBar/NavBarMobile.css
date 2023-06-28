@@ -1,0 +1,89 @@
+
+.container-navigation {
+    width: 100%;
+}
+.navigation-responsive {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #f0f0f0FF;
+    z-index: 1000000000000;
+}
+.navbar-responsive-fijo {
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    z-index: 1000000000000;
+    background-color: #f0f0f0FF;
+}
+.container-logo-marca-responsive {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+.container-logo-marca-responsive img {
+    height: 80px;
+    margin-left: 10px;
+}
+.container-open {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 100000000000;
+}
+.open {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+.container-close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5px;
+    width: 100%;
+    z-index: 100000000000;
+}
+.close {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+ion-icon {
+    padding: 5px;
+}
+.navbar-list-responsive {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f0f0f0FF;
+    width: 100%;
+    margin: 0;
+    padding-left: 0;
+    z-index: 1000000;
+}
+.list-responsive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    list-style: none;
+    text-decoration: none;
+    font-size: 10px;
+}
+.list-responsive:hover {
+    background-color: #CD1F26;
+}
+.list-text-responsive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+}
