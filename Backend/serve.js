@@ -1,12 +1,16 @@
 const express  = require('express');
 /* const { request } = require('http'); */
 const app = express();
+require('dotenv').config()
 
 //Importar conexión con MongoDB
 const usuariosBD = require('./conexion')
 
 //Importar archivo de rutas y modelo usuario
 const rutaUsuario = require('./rutas/usuario');
+
+//Puerto
+const PORT = process.env.PORT;
 
 //Importacion body-parser
 const bodyParser = require('body-parser');
@@ -24,8 +28,8 @@ app.get(
 
 //Configuración de servido básico
 app.listen(
-    5000,
+    PORT,
     function() {
-        console.log('El servidor Node esta corriendo.');
+        console.log('El servidor Node esta corriendo en el puerto: ' + PORT);
     }
 )
