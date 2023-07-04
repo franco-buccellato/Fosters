@@ -26,6 +26,9 @@ app.get(
     }
 )
 
+//Habilitando peticiones de culquier lado; si no setear url de front
+app.use(cors({origin:true}));
+
 //Configuración de servido básico
 app.listen(
     PORT,
