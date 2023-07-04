@@ -9,19 +9,5 @@
   },
   "name": "catalogofoster",
   "version": "1.0.0",
-  "main": "serve.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/franco-buccellato/CatalogoFoster.git"
-  },
-  "author": "Mineris",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/franco-buccellato/CatalogoFoster/issues"
-  },
-  "homepage": "https://github.com/franco-buccellato/CatalogoFoster#readme",
-  "description": ""
+  "main": "serve.js"
 }
