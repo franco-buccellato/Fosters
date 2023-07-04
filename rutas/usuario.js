@@ -52,6 +52,7 @@ router.post(
             (err) => {
                 console.log("There was an error saving the msg object to the database.");
                 console.log("Sending 500 status code.");
+                console.log(err.response.data) 
                 res.sendStatus(500);
             }
         );
