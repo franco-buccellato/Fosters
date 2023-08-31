@@ -4,43 +4,43 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const schemaUsuario = new schema(
+const schemaProducto = new schema(
     {
+        id: String,
         nombre: String,
-        contrasenia: String,
-        descuento: Number,
-        utilidad: Number,
-        proveedor: String,
-        idUsuario: String
+        precio: Number,
+        rubro: String,
+        codigoFabrica: String,
+        tipoModificacion: String,
+        marca: String,
+        modelos: Array,
+        linkImagen: String,
+        idProducto: String
     }
 )
 
-const ModeloUsuario = mongoose.model('usuarios', schemaUsuario);
+const ModeloProducto = mongoose.model('productos', schemaProducto);
 
 module.exports = router;
 
-/* router.get(
-    '/test',
-    (req, res) => {
-        res.end('Ruta ejemplo en funcionamiento.')
-    }
-) */
-
-//Agregar nuevo usuario
+//Agregar nuevo producto
 router.post(
     '/nuevo',
     (req, res) => {
-        const nuevoUsuario = new ModeloUsuario(
+        const nuevoProducto = new ModeloProducto(
             {
+                id: req.body.id,
                 nombre: req.body.nombre,
-                contrasenia: req.body.contrasenia,
-                descuento: req.body.descuento,
-                utilidad: 0,
-                proveedor: req.body.proveedor,
-                idUsuario: req.body.idUsuario
+                precio: req.body.precio,
+                rubro: req.body.rubro,
+                codigoFabrica: req.body.codigoFabrica,
+                tipoModificacion: req.body.tipoModificacion,
+                marca: req.body.marca,
+                modelos: req.body.modelos,
+                linkImagen: req.body.linkImagen
             }
         )
-        nuevoUsuario.save()
+        nuevoProducto.save()
         .then(
             () => {
                 console.log("Message has been saved successfully in the database.");
@@ -59,13 +59,13 @@ router.post(
     }
 )
 
-//Obtener lista de usuarios
+//Obtener lista de productos
 router.get(
     '/',
     (req, res) => {
-        ModeloUsuario.find(
+        ModeloProducto.find(
             {            
-                proveedor: req.query.proveedor
+                
             }
         )
         .then(
@@ -85,14 +85,47 @@ router.get(
     }
 )
 
-//Agregar un usuario
+//Obtener lista de productos
+router.get(
+    '/detail',
+    (req, res) => {
+        ModeloProducto.findOne(
+            {            
+                id: req.query.id
+            }
+        )
+        .then(
+            (docs) => {
+                console.log("Message has been saved successfully in the database.");
+                console.log("This is a post request.");
+                console.log("Doc: ", docs);
+                res.send(docs);
+            }
+        ).catch(
+            (err) => {
+                console.log("There was an error saving the msg object to the database.");
+                console.log("Sending 500 status code.");
+                res.sendStatus(500);
+            }
+        );
+    }
+)
+
+//Agregar un producto
 router.post(
     '/',
     (req, res) => {
-        ModeloUsuario.findOne(
+        ModeloProducto.findOne(
             {            
+                id: req.body.id,
                 nombre: req.body.nombre,
-                contrasenia: req.body.contrasenia
+                precio: req.body.precio,
+                rubro: req.body.rubro,
+                codigoFabrica: req.body.codigoFabrica,
+                tipoModificacion: req.body.tipoModificacion,
+                marca: req.body.marca,
+                modelos: req.body.modelos,
+                linkImagen: req.body.linkImagen
             }
         )
         .then(
@@ -112,19 +145,23 @@ router.post(
     }
 )
 
-//Modificar usuario
+//Modificar producto
 router.post(
     '/actualizar',
     (req, res) => {
-        ModeloUsuario.findOneAndUpdate(
+        ModeloProducto.findOneAndUpdate(
             {
-                idUsuario: req.body.idUsuario
+                id: req.body.id
             },
             {
                 nombre: req.body.nombre,
-                contrasenia: req.body.contrasenia,
-                descuento: req.body.descuento,
-                utilidad: req.body.utilidad
+                precio: req.body.precio,
+                rubro: req.body.rubro,
+                codigoFabrica: req.body.codigoFabrica,
+                tipoModificacion: req.body.tipoModificacion,
+                marca: req.body.marca,
+                modelos: req.body.modelos,
+                linkImagen: req.body.linkImagen
             }
         )
         .then(
@@ -144,16 +181,51 @@ router.post(
     }
 )
 
-//Eliminar usuario
+//Eliminar producto
 router.post(
     '/eliminar',
     (req, res) => {
-        ModeloUsuario.findOneAndDelete(
+        ModeloProducto.findOneAndDelete(
             {
-                idUsuario: req.body.idUsuario
+                id: req.body.id
             }
         )
         .then(
+            () => {
+                console.log("Message has been saved successfully in the database.");
+                console.log("This is a post request.");
+                console.log("Req body: ", req.body.nombre);
+                res.sendStatus(200);
+            }
+        ).catch(
+            (err) => {
+                console.log("There was an error saving the msg object to the database.");
+                console.log("Sending 500 status code.");
+                res.sendStatus(500);
+            }
+        );
+    }
+)
+
+//Modificar precios masivamente
+router.post(
+    '/aumento',
+    (req, res) => {
+            ModeloProducto.findOneAndUpdate(
+            {
+                id: req.body.id
+            },
+            {
+                precio: req.body.nuevoPrecio,
+            }
+/*             ModeloProducto.updateMany({}, [{
+                $set: {
+                    "id": {
+                        $toString: "$id"
+                    }
+                }
+            }] */
+        ).then(
             () => {
                 console.log("Message has been saved successfully in the database.");
                 console.log("This is a post request.");
