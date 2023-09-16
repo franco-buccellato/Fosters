@@ -1,5 +1,5 @@
 const express  = require('express');
-var cors = require('cors')
+var cors = require('cors');
 /* const { request } = require('http'); */
 const app = express();
 require('dotenv').config()
@@ -30,7 +30,12 @@ app.get(
 )
 
 //Habilitando peticiones de culquier lado; si no setear url de front
-app.use(cors({origin:true}));
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 //Configuración de servido básico
 app.listen(
