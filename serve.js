@@ -29,14 +29,13 @@ app.get(
 )
 
 //Habilitando peticiones de culquier lado; si no setear url de front
-/* const corsOptions ={
-    origin:'http://localhost:3000', 
+const corsOptions ={
+    origin:true, 
     credentials:true,            //access-control-allow-credentials:true
-    origin:true,
     optionSuccessStatus:200
 }
-app.use(cors(corsOptions)); */
-app.use(cors({origin:true}));
+app.use(cors(corsOptions));
+/* app.use(cors({origin:true})); */
 
 //Configuración de servido básico
 app.listen(

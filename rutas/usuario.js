@@ -88,7 +88,7 @@ router.get(
 //Agregar un usuario
 router.post(
     '/',
-    (req, res) => {
+    async (req, res) => {
         ModeloUsuario.findOne(
             {            
                 nombre: req.body.nombre,
