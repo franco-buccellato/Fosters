@@ -1,6 +1,5 @@
 const express  = require('express');
 var cors = require('cors');
-/* const { request } = require('http'); */
 const app = express();
 require('dotenv').config()
 
@@ -33,6 +32,7 @@ app.get(
 const corsOptions ={
     origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
+    origin:true,
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
