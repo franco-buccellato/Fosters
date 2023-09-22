@@ -17,7 +17,7 @@ const PORT = process.env.PORT;
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:'true'}));
-
+//Router
 app.use('/api/usuario/', rutaUsuario);
 app.use('/api/productos/', rutasProductos);
 
