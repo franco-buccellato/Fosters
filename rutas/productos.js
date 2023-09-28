@@ -16,6 +16,9 @@ const schemaProducto = new schema(
         modelos: Array,
         linkImagen: String,
         idProducto: String
+    },
+    {
+        timestamps: true
     }
 )
 
@@ -162,6 +165,15 @@ router.post(
                 marca: req.body.marca,
                 modelos: req.body.modelos,
                 linkImagen: req.body.linkImagen
+            },
+            {
+                new:true,
+                upsert: true,
+                timestamps:
+                    {
+                        createdAt:false,
+                        updatedAt:true
+                    }
             }
         )
         .then(

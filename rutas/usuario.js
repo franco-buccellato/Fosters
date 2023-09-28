@@ -12,6 +12,9 @@ const schemaUsuario = new schema(
         utilidad: Number,
         proveedor: String,
         idUsuario: String
+    },
+    {
+        timestamps: true
     }
 )
 
