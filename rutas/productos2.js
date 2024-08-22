@@ -17,11 +17,11 @@ const schemaProducto = new schema(
         idProducto: String
     },
     {
-        //timestamps: true
+        timestamps: true
     }
 )
 
-const ModeloProducto = mongoose.model('productos', schemaProducto);
+const ModeloProducto = mongoose.model('productos2', schemaProducto);
 
 module.exports = router;
 
