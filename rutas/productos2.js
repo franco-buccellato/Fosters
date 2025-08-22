@@ -14,6 +14,7 @@ const schemaProducto = new schema(
         precio: Number,
         modelos: Array,
         linkImagen: String,
+        categoria: String,
         idProducto: String
     },
     {
@@ -38,6 +39,7 @@ router.post(
                 marca: req.body.marca,
                 precio: req.body.precio,
                 modelos: req.body.modelos,
+                categoria: req.body.categoria,
                 linkImagen: req.body.linkImagen
             }
         )
@@ -112,6 +114,55 @@ router.get(
     }
 )
 
+// Endpoint de búsqueda predictiva
+router.get(
+    '/search', 
+    (req, res) => {
+        // const query = req.query.query;
+        // const regex = new RegExp(query, 'i');
+        const { id, codigoFabrica, marca, modelos, descripcion } = req.query;
+
+        // Mostrar en consola los parámetros recibidos
+        console.log('Parámetros de búsqueda:', req.query);
+    
+        // Construir el objeto de búsqueda
+        let searchCriteria = {};
+        if (id) {
+          searchCriteria.id = { $regex: id, $options: 'i' };
+        }
+        if (codigoFabrica) {
+          searchCriteria.codigoFabrica = { $regex: codigoFabrica, $options: 'i' };
+        }
+        if (marca) {
+          searchCriteria.marca = { $regex: marca, $options: 'i' };
+        }
+        if (modelos) {
+          searchCriteria.modelos = { $regex: modelos, $options: 'i' };
+        }
+        if (descripcion) {
+          searchCriteria.descripcion = { $regex: descripcion, $options: 'i' };
+        }
+
+        // Mostrar en consola el objeto de búsqueda
+        console.log('Criterios de búsqueda:', searchCriteria);
+        ModeloProducto.find({searchCriteria}).limit(10)
+        .then(
+            (docs) => {
+                console.log("Message has been saved successfully in the database.");
+                console.log("This is a post request.");
+                console.log("Doc: ", docs);
+                res.send(docs);
+            }
+        ).catch(
+            (err) => {
+                console.log("There was an error saving the msg object to the database.");
+                console.log("Sending 500 status code.");
+                res.sendStatus(500);
+            }
+        );
+    }
+);
+
 //Agregar un producto
 router.post(
     '/',
@@ -125,6 +176,7 @@ router.post(
                 marca: req.body.marca,
                 precio: req.body.precio,
                 modelos: req.body.modelos,
+                categoria: req.body.categoria,
                 linkImagen: req.body.linkImagen
             }
         )
@@ -161,6 +213,7 @@ router.post(
                 marca: req.body.marca,
                 precio: req.body.precio,
                 modelos: req.body.modelos,
+                categoria: req.body.categoria,
                 linkImagen: req.body.linkImagen
             },
             {
@@ -220,21 +273,15 @@ router.post(
 router.post(
     '/aumento',
     (req, res) => {
-            ModeloProducto.findOneAndUpdate(
+        ModeloProducto.findOneAndUpdate(
             {
                 id: req.body.id
             },
             {
                 precio: req.body.nuevoPrecio,
             }
-/*             ModeloProducto.updateMany({}, [{
-                $set: {
-                    "id": {
-                        $toString: "$id"
-                    }
-                }
-            }] */
-        ).then(
+        )
+        .then(
             () => {
                 console.log("Message has been saved successfully in the database.");
                 console.log("This is a post request.");
@@ -250,3 +297,27 @@ router.post(
         );
     }
 )
+
+// Modificar precios masivamente
+router.post('/aumento2', async (req, res) => {
+    try {
+        const productos = req.body.productos; // Una lista de productos con id y nuevoPrecio
+        
+        // Crear un array de operaciones de actualización
+        const operaciones = productos.map(producto => ({
+            updateOne: {
+                filter: { id: producto.id },
+                update: { precio: producto.nuevoPrecio }
+            }
+        }));
+
+        // Ejecutar todas las operaciones de actualización masiva
+        await ModeloProducto.bulkWrite(operaciones);
+        
+        console.log("Precios actualizados correctamente.");
+        res.sendStatus(200);
+    } catch (err) {
+        console.error("Error al actualizar los precios:", err);
+        res.sendStatus(500);
+    }
+});
