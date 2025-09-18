@@ -269,55 +269,42 @@ router.post(
     }
 )
 
-//Modificar precios masivamente
-router.post(
-    '/aumento',
-    (req, res) => {
-        ModeloProducto.findOneAndUpdate(
-            {
-                id: req.body.id
-            },
-            {
-                precio: req.body.nuevoPrecio,
-            }
-        )
-        .then(
-            () => {
-                console.log("Message has been saved successfully in the database.");
-                console.log("This is a post request.");
-                console.log("Req body: ", req.body.nombre);
-                res.sendStatus(200);
-            }
-        ).catch(
-            (err) => {
-                console.log("There was an error saving the msg object to the database.");
-                console.log("Sending 500 status code.");
-                res.sendStatus(500);
-            }
-        );
-    }
-)
-
-// Modificar precios masivamente
+// Ruta para actualizar precios masivamente
 router.post('/aumento2', async (req, res) => {
     try {
-        const productos = req.body.productos; // Una lista de productos con id y nuevoPrecio
-        
-        // Crear un array de operaciones de actualización
-        const operaciones = productos.map(producto => ({
-            updateOne: {
-                filter: { id: producto.id },
-                update: { precio: producto.nuevoPrecio }
-            }
-        }));
-
-        // Ejecutar todas las operaciones de actualización masiva
-        await ModeloProducto.bulkWrite(operaciones);
-        
-        console.log("Precios actualizados correctamente.");
-        res.sendStatus(200);
+      // Validar que venga un array
+      if (!Array.isArray(req.body.productos) || req.body.productos.length === 0) {
+        return res.status(400).json({ error: 'Debe enviar un array "productos" con id y nuevoPrecio.' });
+      }
+  
+      // Filtrar solo productos con id y nuevoPrecio válido
+      const productosValidos = req.body.productos.filter(
+        p => p.id && typeof p.nuevoPrecio === 'number'
+      );
+  
+      if (productosValidos.length === 0) {
+        return res.status(400).json({ error: 'No hay productos válidos para actualizar.' });
+      }
+  
+      // Armar operaciones bulk
+      const operaciones = productosValidos.map(producto => ({
+        updateOne: {
+          filter: { id: producto.id },
+          update: { $set: { precio: producto.nuevoPrecio } }
+        }
+      }));
+  
+      // Ejecutar actualización masiva
+      const resultado = await ModeloProducto.bulkWrite(operaciones);
+  
+      console.log(`Precios actualizados: ${resultado.modifiedCount} de ${productosValidos.length}`);
+      res.status(200).json({
+        message: 'Precios actualizados correctamente.',
+        totalSolicitados: productosValidos.length,
+        modificados: resultado.modifiedCount
+      });
     } catch (err) {
-        console.error("Error al actualizar los precios:", err);
-        res.sendStatus(500);
+      console.error('Error al actualizar los precios masivamente:', err);
+      res.status(500).json({ error: 'Error al actualizar precios masivamente.' });
     }
-});
+  });
