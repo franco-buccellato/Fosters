@@ -8,6 +8,12 @@ const schemaUsuario = new schema(
     {
         nombre: String,
         contrasenia: String,
+        descripcionCliente: {
+            type: String,
+            trim: true,
+            maxlength: 300,
+            default: ''
+        },        
         descuento: Number,
         utilidad: Number,
         proveedor: String,
@@ -37,6 +43,7 @@ router.post(
             {
                 nombre: req.body.nombre,
                 contrasenia: req.body.contrasenia,
+                descripcionCliente: req.body.descripcionCliente,
                 descuento: req.body.descuento,
                 utilidad: 0,
                 proveedor: req.body.proveedor,
@@ -126,6 +133,7 @@ router.post(
             {
                 nombre: req.body.nombre,
                 contrasenia: req.body.contrasenia,
+                descripcionCliente: req.body.descripcionCliente,
                 descuento: req.body.descuento,
                 utilidad: req.body.utilidad
             }
