@@ -2,59 +2,59 @@ const express = require('express');
 const router = express.Router();
 const Recomendacion = require('../modelos/recomendaciones');
 
-
-// ✅ GET - listar todas
+// 🔍 GET - listar
 router.get('/', async (req, res) => {
     try {
-        const recomendaciones = await Recomendacion.find();
-        res.json(recomendaciones);
-    } catch (error) {
+        const data = await Recomendacion.find();
+        res.json(data);
+    } catch (err) {
         res.status(500).json({ error: 'Error al obtener recomendaciones' });
     }
 });
 
-
-// ✅ POST - crear nueva
+// ➕ POST - crear
 router.post('/', async (req, res) => {
     try {
-        const nueva = new Recomendacion({
-            id: req.body.id,
-            descripcion: req.body.descripcion
-        });
+        const { id, descripcion } = req.body;
 
+        if (!id || !descripcion) {
+            return res.status(400).json({ error: 'Faltan datos' });
+        }
+
+        const nueva = new Recomendacion({ id, descripcion });
         const guardada = await nueva.save();
+
         res.status(201).json(guardada);
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({ error: 'Error al crear recomendación' });
     }
 });
 
-
-// ✅ PUT - actualizar
-router.put('/:id', async (req, res) => {
+// ✏️ PUT - editar (por _id)
+router.put('/:_id', async (req, res) => {
     try {
-        const actualizada = await Recomendacion.findOneAndUpdate(
-            { id: req.params.id }, // ⚠️ usamos tu id, no _id
+        const actualizada = await Recomendacion.findByIdAndUpdate(
+            req.params._id,
             {
+                id: req.body.id,
                 descripcion: req.body.descripcion
             },
             { new: true }
         );
 
         res.json(actualizada);
-    } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar recomendación' });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al actualizar' });
     }
 });
 
-
-// ✅ DELETE - eliminar
-router.delete('/:id', async (req, res) => {
+// 🗑 DELETE - eliminar (por _id)
+router.delete('/:_id', async (req, res) => {
     try {
-        await Recomendacion.findOneAndDelete({ id: req.params.id });
-        res.json({ mensaje: 'Recomendación eliminada' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error al eliminar recomendación' });
+        await Recomendacion.findByIdAndDelete(req.params._id);
+        res.json({ mensaje: 'Eliminado' });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al eliminar' });
     }
 });
 
