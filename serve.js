@@ -9,6 +9,7 @@ const usuariosBD = require('./conexion')
 //Importar archivo de rutas y modelo usuario
 const rutaUsuario = require('./rutas/usuario');
 const rutasProductos = require('./rutas/productos2');
+const rutasRecomendaciones = require('./rutas/recomendaciones');
 
 //Puerto
 const PORT = process.env.PORT;
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({extended:'true'}));
 //Router
 app.use('/api/usuario/', rutaUsuario);
 app.use('/api/productos2/', rutasProductos);
+app.use('/api/recomendaciones/', rutasRecomendaciones);
 
 app.get(
     '/',
